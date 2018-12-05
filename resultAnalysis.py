@@ -75,10 +75,7 @@
 #   For each subject grade
 #     update dictionary
 #
-#   write current subject dictionaty to analysis.csv
-#
-#   reinitialize dictionary
-# Save analysis.csv
+# write dictionaty to analysis.csv
 
 import csv
 
