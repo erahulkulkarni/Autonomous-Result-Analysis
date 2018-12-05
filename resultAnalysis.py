@@ -96,7 +96,19 @@ with open('result.csv', 'r') as csvfile:
                           'E': 0, 'F': 0, 'NE': 0, 'NP': 0, 'PP': 0,
                           'TF':0, 'TP':0, }
 
+    # consider PASS column of result
+
+    totalNumberOfStudents = 0
+
+    totalNumberOfPassStudents = 0
+
+    totalNumberOfFailStudents = 0
+
     for row in results:
+
+        totalNumberOfStudents = totalNumberOfStudents + 1
+
+        fail = False
 
         for code, grade in zip( subjectCode, row ):            
 
@@ -107,9 +119,14 @@ with open('result.csv', 'r') as csvfile:
 
                 if ( grade == 'F' ):
                     subject[code]['TF'] = subject[code]['TF'] + 1
+                    fail = True
                 else:
                     subject[code]['TP'] = subject[code]['TP'] + 1           
 
+        if ( fail == True ):
+            totalNumberOfFailStudents = totalNumberOfFailStudents + 1
+        else:
+            totalNumberOfPassStudents = totalNumberOfPassStudents + 1
 
 with open('analysis.csv', 'w') as csvfile:
     writeAnalysis = csv.writer( csvfile , delimiter=',' )
@@ -128,10 +145,20 @@ with open('analysis.csv', 'w') as csvfile:
 
                                 ] )    
 
+    writeAnalysis.writerow( [ ] )
+    writeAnalysis.writerow( [ ] )
+    writeAnalysis.writerow( [ "OverallPerformance" ] )
+    writeAnalysis.writerow( [ "TotalNumberOfStudents", totalNumberOfStudents ] )
+    writeAnalysis.writerow( [ "TotalNumberOfFailStudents", totalNumberOfFailStudents ] )
+    writeAnalysis.writerow( [ "TotalNumberOfPassStudents", totalNumberOfPassStudents ] )
+    writeAnalysis.writerow( [ "PassPercentage",  100 * ( totalNumberOfPassStudents / ( totalNumberOfPassStudents + totalNumberOfFailStudents ) ) ] )
+
 # Save the result.csv and the Python script resultAnalysis.py is same folder
 # Open Python Terminal and run this script as 
 # python resultAnalysis.py
 
+# If input result.csv , hence result.xlsx format was correct, then
+#   analysis.csv will be generated
 # Now open analysis.csv in Excel / Calc
 
 # Improvement: Use MapReduce?
