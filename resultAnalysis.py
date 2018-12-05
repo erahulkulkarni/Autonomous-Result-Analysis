@@ -120,6 +120,8 @@ with open('result.csv', 'r') as csvfile:
                 if ( grade == 'F' ):
                     subject[code]['TF'] = subject[code]['TF'] + 1
                     fail = True
+                elif ( grade == 'NE' ):
+                    pass  
                 else:
                     subject[code]['TP'] = subject[code]['TP'] + 1           
 
@@ -133,7 +135,12 @@ with open('analysis.csv', 'w') as csvfile:
     writeAnalysis.writerow( [ 'SubjectCode' , 'S+' , 'S' , 'A' , 'B' , 'C' , 
                               'D' , 'E' , 'F' , 'NE' , 'NP' , 'PP', 
                               'TF', 'TP', 'PassPerc' ] )
+
     for code in subjectCode:
+        if ( subject[code]['TF'] + subject[code]['TP'] ) == 0:
+            passPercentage = 0
+        else:
+            passPercentage = ( 100.00 * subject[code]['TP'] ) / ( subject[code]['TF'] + subject[code]['TP'] )
         writeAnalysis.writerow( [ code , subject[code]['S+'] , 
                                   subject[code]['S'] , subject[code]['A'] ,
                                   subject[code]['B'] , subject[code]['C'] ,
@@ -141,9 +148,7 @@ with open('analysis.csv', 'w') as csvfile:
                                   subject[code]['F'] , subject[code]['NE'] ,
                                   subject[code]['NP'] , subject[code]['PP'] ,
                                   subject[code]['TF'] , subject[code]['TP'],
-  100 * ( subject[code]['TP'] / ( subject[code]['TF'] + subject[code]['TP'] ) )   
-
-                                ] )    
+                                  passPercentage ] )
 
     writeAnalysis.writerow( [ ] )
     writeAnalysis.writerow( [ ] )
@@ -151,7 +156,9 @@ with open('analysis.csv', 'w') as csvfile:
     writeAnalysis.writerow( [ "TotalNumberOfStudents", totalNumberOfStudents ] )
     writeAnalysis.writerow( [ "TotalNumberOfFailStudents", totalNumberOfFailStudents ] )
     writeAnalysis.writerow( [ "TotalNumberOfPassStudents", totalNumberOfPassStudents ] )
-    writeAnalysis.writerow( [ "PassPercentage",  100 * ( totalNumberOfPassStudents / ( totalNumberOfPassStudents + totalNumberOfFailStudents ) ) ] )
+    writeAnalysis.writerow( [ "PassPercentage",  ( 100.00 * totalNumberOfPassStudents ) / ( totalNumberOfPassStudents + totalNumberOfFailStudents ) ] )
+    
+    print("analysis.csv created")
 
 # Save the result.csv and the Python script resultAnalysis.py is same folder
 # Open Python Terminal and run this script as 
