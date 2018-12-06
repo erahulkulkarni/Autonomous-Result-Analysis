@@ -1,8 +1,9 @@
 # Improvements: read xlsx or csv , generate xlsx
 # Allow to select file using Graphical interface
+# Read college name, department, logo
 # As a application that opens up interface
 # Use MapReduce
-# Statistics , graph
+# Generate pdf, Statistics , graph
 
 
 # Input: Results of semester, ordered as
