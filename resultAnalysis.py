@@ -1,3 +1,10 @@
+# Improvements: read xlsx or csv , generate xlsx
+# Allow to select file using Graphical interface
+# As a application that opens up interface
+# Use MapReduce
+# Statistics , graph
+
+
 # Input: Results of semester, ordered as
 #          Multiple columns representing subject/subject code
 #          Each row having Grades obtained by student, comma separated
